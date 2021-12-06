@@ -19,6 +19,14 @@ Volcano name:<br>
 Height: %s m
 """
 
+def color_producer(el):
+    if (el<2000):
+        return 'green'
+    elif (el<4000):
+        return 'blue'
+    else:
+        return 'red'
+
 fg=folium.FeatureGroup(name="Volcanoes")
 for lt,ln,el in zip(lat,lon,elev):
     #simple popup
@@ -29,11 +37,17 @@ for lt,ln,el in zip(lat,lon,elev):
 
     #make iframe with html inside
     #iframe = folium.IFrame(html=html1 % str(el), width=200, height=100)
-    #fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon = folium.Icon(color = "green")))
+    #fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon = folium.Icon(color =color_producer(el)) ))
 
     #add hyperlink inside iframe 
-    iframe = folium.IFrame(html=html2 % (name, name, el), width=200, height=100)
-    fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon = folium.Icon(color = "green")))
+    #iframe = folium.IFrame(html=html2 % (name, name, el), width=200, height=100)
+    #fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon = folium.Icon(color = "green")))
+    
+    #make iframe with html inside
+    iframe = folium.IFrame(html=html1 % str(el), width=200, height=100)
+    fg.add_child(folium.CircleMarker(location=[lt, ln], 
+        radiud=5,color=color_producer(el),fill=True,fill_color=color_producer(el),
+        popup=folium.Popup(iframe) ))
 
 
 map.add_child(fg)
