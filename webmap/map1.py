@@ -49,7 +49,7 @@ for lt,ln,el in zip(lat,lon,elev):
         radiud=5,color=color_producer(el),fill=True,fill_color=color_producer(el),
         popup=folium.Popup(iframe) ))
 
-
+fg.add_child(folium.GeoJson(data=open("world.json","r",encoding='utf-8-sig').read()))
 map.add_child(fg)
 
 map.save("1.html") # create html file with map
