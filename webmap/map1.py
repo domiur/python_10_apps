@@ -27,7 +27,7 @@ def color_producer(el):
     else:
         return 'red'
 
-fg=folium.FeatureGroup(name="Volcanoes")
+fg_vulcan=folium.FeatureGroup(name="Volcanoes")
 for lt,ln,el in zip(lat,lon,elev):
     #simple popup
     #fg.add_child(folium.Marker(location=[lt,ln],popup=str(el),icon=folium.Icon(color='green'))) #add marker
@@ -45,12 +45,20 @@ for lt,ln,el in zip(lat,lon,elev):
     
     #make iframe with html inside
     iframe = folium.IFrame(html=html1 % str(el), width=200, height=100)
-    fg.add_child(folium.CircleMarker(location=[lt, ln], 
+    fg_vulcan.add_child(folium.CircleMarker(location=[lt, ln], 
         radiud=5,color=color_producer(el),fill=True,fill_color=color_producer(el),
         popup=folium.Popup(iframe) ))
 
-fg.add_child(folium.GeoJson(data=open("world.json","r",encoding='utf-8-sig').read()))
-map.add_child(fg)
+fg_pop=folium.FeatureGroup(name="population")
+fg_pop.add_child(folium.GeoJson(data=open("world.json","r",encoding='utf-8-sig').read(),
+    style_function=lambda x: {'fillColor':
+        'green' if x['properties']['POP2005']<10e6 
+        else 'orange' if x['properties']['POP2005']<20e6 
+        else 'red' }))
+
+map.add_child(fg_vulcan)
+map.add_child(fg_pop)
+map.add_child(folium.LayerControl())  # add after feature groups
 
 map.save("1.html") # create html file with map
 
