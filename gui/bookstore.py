@@ -3,6 +3,8 @@ import bookstore_backend
 
 window=Tk()
 
+window.title("BookStore")
+
 l1=Label(window,text="Title")
 l2=Label(window,text="Author")
 l3=Label(window,text="Year")
@@ -30,6 +32,22 @@ e4.grid(row=1,column=3)
 list1=Listbox(window,height=6,width=35)
 list1.grid(row=2,column=0,rowspan=6,columnspan=2)
 
+def get_selected_item(event):
+    global selected_item
+    if list1.size()>0:
+        index=list1.curselection()[0]
+        selected_item=list1.get(index)
+        e1.delete(0,END)
+        e2.delete(0,END)
+        e3.delete(0,END)
+        e4.delete(0,END)
+        e1.insert(END,selected_item[1])
+        e2.insert(END,selected_item[2])
+        e3.insert(END,selected_item[3])
+        e4.insert(END,selected_item[4])
+
+list1.bind('<<ListboxSelect>>',get_selected_item)
+
 sb1=Scrollbar(window,width=30)
 sb1.grid(row=2,column=2,rowspan=6)
 list1.configure(yscrollcommand=sb1.set)
@@ -52,16 +70,26 @@ def command_add():
     command_view()
 
 def command_delete():
-    name,author,year,isbn=title_var.get(),author_var.get(),year_var.get(),isbn_var.get()
-    bookstore_backend.insert(name,author,year,isbn)
+    id,name,author,year,isbn=selected_item
+    id=bookstore_backend.getid(name,author,year,isbn)
+    bookstore_backend.delete(id)
     command_view()
+
+def command_update():
+    id,name,author,year,isbn=selected_item
+    id=bookstore_backend.getid(name,author,year,isbn)
+    name,author,year,isbn=title_var.get(),author_var.get(),year_var.get(),isbn_var.get()
+    bookstore_backend.update(id,name,author,year,isbn)
+    command_view()
+
+
 
 b1=Button(window,text="View all",width=12,command=command_view)
 b2=Button(window,text="Search entry",width=12,command=command_search)
 b3=Button(window,text="Add entry",width=12,command=command_add)
-b4=Button(window,text="Update selected",width=12)
+b4=Button(window,text="Update selected",width=12,command=command_update)
 b5=Button(window,text="Delete selected",width=12,command=command_delete)
-b6=Button(window,text="Close",width=12)
+b6=Button(window,text="Close",width=12,command=window.destroy)
 
 b1.grid(row=2,column=3)
 b2.grid(row=3,column=3)

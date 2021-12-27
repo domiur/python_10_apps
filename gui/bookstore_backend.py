@@ -30,6 +30,14 @@ def search(name="",author="",year="",isbn=""):
     conn.close()
     return rows
 
+def getid(name="",author="",year="",isbn=""):
+    conn=sqlite3.connect("book.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * from book where title=? and author=? and year=? and isbn=?",(name,author,year,isbn))
+    rows=cur.fetchall()
+    conn.close()
+    return rows[0][0]
+
 
 def delete(id):
     conn=sqlite3.connect("book.db")
