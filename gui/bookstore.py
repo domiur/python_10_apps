@@ -1,8 +1,8 @@
 from tkinter import *
 from backend import Database
 
-#db=Database("book1.db","book")
-db=Database("dbname='testpydb' user='testpyuser' password='test123test' host='localhost' port=5432 ","testpydb")
+db=Database("sqlite3","book1.db","book")
+#db=Database("postgres","dbname='testpydb' user='testpyuser' password='test123test' host='localhost' port=5432 ","testpydb")
 
 window=Tk()
 window.title("BookStore")

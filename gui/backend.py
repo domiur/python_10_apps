@@ -1,4 +1,5 @@
 from db_api import DB_api
+from db_factory import db_connect
 
 class Database:
     schema=["id:INTEGER PRIMARY KEY",
@@ -7,14 +8,14 @@ class Database:
             "year:INTEGER",
             "isbn:INTEGER"]
 
-    def __init__(self,dbpath,dbname):
+    def __init__(self,dbtype,dbpath,dbname):
         self.connection_path=dbpath
         self.dbname=dbname
-        self.connect()
+        self.connect(dbtype)
         self.create_table()
 
-    def connect(self):
-        self.db=DB_api(self.connection_path)
+    def connect(self,dbtype):
+        self.db=DB_api(db_connect(dbtype),self.connection_path)
 
     def create_table(self):
         self.db.execute_and_commit("CREATE TABLE IF NOT EXISTS "+self.dbname+
