@@ -1,8 +1,10 @@
 from tkinter import *
-import bookstore_backend
+from backend import Database
+
+#db=Database("book1.db","book")
+db=Database("dbname='testpydb' user='testpyuser' password='test123test' host='localhost' port=5432 ","testpydb")
 
 window=Tk()
-
 window.title("BookStore")
 
 l1=Label(window,text="Title")
@@ -55,31 +57,31 @@ sb1.configure(command=list1.yview)
 
 def command_view():
     list1.delete(0,END)
-    for row in bookstore_backend.view():
+    for row in db.view():
         list1.insert(END,row)
 
 def command_search():
     list1.delete(0,END)
     name,author,year,isbn=title_var.get(),author_var.get(),year_var.get(),isbn_var.get()
-    for row in bookstore_backend.search(name,author,year,isbn):
+    for row in db.search(name,author,year,isbn):
         list1.insert(END,row)
 
 def command_add():
     name,author,year,isbn=title_var.get(),author_var.get(),year_var.get(),isbn_var.get()
-    bookstore_backend.insert(name,author,year,isbn)
+    db.insert(name,author,year,isbn)
     command_view()
 
 def command_delete():
     id,name,author,year,isbn=selected_item
-    id=bookstore_backend.getid(name,author,year,isbn)
-    bookstore_backend.delete(id)
+    id=db.getid(name,author,year,isbn)
+    db.delete(id)
     command_view()
 
 def command_update():
     id,name,author,year,isbn=selected_item
-    id=bookstore_backend.getid(name,author,year,isbn)
+    id=db.getid(name,author,year,isbn)
     name,author,year,isbn=title_var.get(),author_var.get(),year_var.get(),isbn_var.get()
-    bookstore_backend.update(id,name,author,year,isbn)
+    db.update(id,name,author,year,isbn)
     command_view()
 
 
@@ -99,3 +101,4 @@ b5.grid(row=6,column=3)
 b6.grid(row=7,column=3)
 
 window.mainloop()
+
