@@ -29,8 +29,10 @@ for y in range(game.size):
         but[x][y].grid(row=y,column=x)
 
 but_new=Button(window,text="New game",height=4)
+but_check=Button(window,text="check",height=4,command=game.check_win)
 but_close=Button(window,text=" Close  ",height=4,command=window.destroy)
 but_new.grid(row=0,column=game.size+1,sticky="ew")
+but_check.grid(row=2,column=game.size+1,sticky="ew")
 but_close.grid(row=1, column=game.size+1,sticky="ew")
 
 window.mainloop()

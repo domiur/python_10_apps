@@ -32,17 +32,110 @@ class TikTakToe:
     def get_cur(self):
         return self.cur
 
+
     def check_win(self):
+        print(self.field)
+        # check by x
         for y in range(self.size):
-            win={TikTakToe.X:[],
-                 TikTakToe.O:[]
-                }
-            prev=None
+            winxy=[]
+            winp=TikTakToe.U
             for x in range(self.size):
-                if prev is not None:
+                cur=self.get(x,y)
+                if winp == TikTakToe.U:
+                    if cur == TikTakToe.U:
+                        continue
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
                 else:
-                    prev=self.get(x,y)
-
-            
-            
-
+                    if cur == TikTakToe.U:
+                        winp=cur
+                        winxy=[]
+                    elif cur==winp:
+                        winxy.append((x,y))
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                if len(winxy)==self.winlen:
+                    print (winp,winxy)
+                    return winp,winxy
+        
+        #check by y
+        for x in range(self.size):
+            winxy=[]
+            winp=TikTakToe.U
+            for y in range(self.size):
+                cur=self.get(x,y)
+                if winp == TikTakToe.U:
+                    if cur == TikTakToe.U:
+                        continue
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                else:
+                    if cur == TikTakToe.U:
+                        winp=cur
+                        winxy=[]
+                    elif cur==winp:
+                        winxy.append((x,y))
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                if len(winxy)==self.winlen:
+                    print (winp,winxy)
+                    return winp,winxy
+        #check diag1
+        for k in range(self.winlen-1,2*self.size-self.winlen):
+            winxy=[]
+            winp=TikTakToe.U
+            for x in range(self.size):
+                y=k-x
+                if y<0 or y>=self.size:
+                    continue
+                cur=self.get(x,y)
+                if winp == TikTakToe.U:
+                    if cur == TikTakToe.U:
+                        continue
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                else:
+                    if cur == TikTakToe.U:
+                        winp=cur
+                        winxy=[]
+                    elif cur==winp:
+                        winxy.append((x,y))
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                if len(winxy)==self.winlen:
+                    print (winp,winxy)
+                    return winp,winxy
+                
+        #check diag2
+        for k in range(-self.size+self.winlen,self.size-self.winlen+1):
+            winxy=[]
+            winp=TikTakToe.U
+            for x in range(self.size):
+                y=x-k
+                if y<0 or y>=self.size:
+                    continue
+                cur=self.get(x,y)
+                if winp == TikTakToe.U:
+                    if cur == TikTakToe.U:
+                        continue
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                else:
+                    if cur == TikTakToe.U:
+                        winp=cur
+                        winxy=[]
+                    elif cur==winp:
+                        winxy.append((x,y))
+                    else:
+                        winp=cur
+                        winxy=[(x,y)]
+                if len(winxy)==self.winlen:
+                    print (winp,winxy)
+                    return winp,winxy
