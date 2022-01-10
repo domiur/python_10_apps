@@ -12,7 +12,6 @@ class Button1(Button):
         if c is not None:
             self['text']=c
         winp,winxy=game.check_win()
-        print(game.state)
         if winp is not None:
             for (x,y) in winxy:
                 but[y][x]['bg']='red'

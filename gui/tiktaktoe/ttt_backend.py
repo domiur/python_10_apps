@@ -44,21 +44,21 @@ class TikTakToe:
             winxy=[]
             winp=TikTakToe.U
             for x in range(self.size):
-                cc=self.get(x,y)
+                cur=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cc == TikTakToe.U:
+                    if cur == TikTakToe.U:
                         continue
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 else:
-                    if cc == TikTakToe.U:
-                        winp=cc
+                    if cur == TikTakToe.U:
+                        winp=cur
                         winxy=[]
-                    elif cc==winp:
+                    elif cur==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
@@ -70,21 +70,21 @@ class TikTakToe:
             winxy=[]
             winp=TikTakToe.U
             for y in range(self.size):
-                cc=self.get(x,y)
+                cur=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cc == TikTakToe.U:
+                    if cur == TikTakToe.U:
                         continue
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 else:
-                    if cc == TikTakToe.U:
-                        winp=cc
+                    if cur == TikTakToe.U:
+                        winp=cur
                         winxy=[]
-                    elif cc==winp:
+                    elif cur==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
@@ -98,21 +98,21 @@ class TikTakToe:
                 y=k-x
                 if y<0 or y>=self.size:
                     continue
-                cc=self.get(x,y)
+                cur=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cc == TikTakToe.U:
+                    if cur == TikTakToe.U:
                         continue
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 else:
-                    if cc == TikTakToe.U:
-                        winp=cc
+                    if cur == TikTakToe.U:
+                        winp=cur
                         winxy=[]
-                    elif cc==winp:
+                    elif cur==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
@@ -127,21 +127,21 @@ class TikTakToe:
                 y=x-k
                 if y<0 or y>=self.size:
                     continue
-                cc=self.get(x,y)
+                cur=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cc == TikTakToe.U:
+                    if cur == TikTakToe.U:
                         continue
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 else:
-                    if cc == TikTakToe.U:
-                        winp=cc
+                    if cur == TikTakToe.U:
+                        winp=cur
                         winxy=[]
-                    elif cc==winp:
+                    elif cur==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cc
+                        winp=cur
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
