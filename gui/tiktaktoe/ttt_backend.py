@@ -2,16 +2,18 @@ class TikTakToe:
     X='X'
     O='O'
     U=' '
+    RUN=1
+    STOP=0
     def __init__(self,size=3,winlen=3):
         self.size=size
         self.winlen=winlen
         self.new_game()
-        self.cur=TikTakToe.X
 
     def new_game(self):
         self.field=[ [TikTakToe.U for i in range(self.size)] for i in range(self.size)]
-        #self.field=[ [str(x*self.size+y) for x in range(self.size)] for y in range(self.size)]
-
+        self.cur=TikTakToe.X
+        self.state=TikTakToe.RUN
+        
     def flip(self):
         if self.cur==TikTakToe.X:
             self.cur=TikTakToe.O
@@ -21,6 +23,8 @@ class TikTakToe:
         return self.field[y][x]
 
     def possbile_step(self,x,y):
+        if self.state==TikTakToe.STOP:
+            return None
         if self.field[y][x]==TikTakToe.U:
             c=self.cur
             self.field[y][x]=self.cur
@@ -40,24 +44,25 @@ class TikTakToe:
             winxy=[]
             winp=TikTakToe.U
             for x in range(self.size):
-                cur=self.get(x,y)
+                cc=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cur == TikTakToe.U:
+                    if cc == TikTakToe.U:
                         continue
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 else:
-                    if cur == TikTakToe.U:
-                        winp=cur
+                    if cc == TikTakToe.U:
+                        winp=cc
                         winxy=[]
-                    elif cur==winp:
+                    elif cc==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
+                    self.state=TikTakToe.STOP
                     return winp,winxy
         
         #check by y
@@ -65,24 +70,25 @@ class TikTakToe:
             winxy=[]
             winp=TikTakToe.U
             for y in range(self.size):
-                cur=self.get(x,y)
+                cc=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cur == TikTakToe.U:
+                    if cc == TikTakToe.U:
                         continue
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 else:
-                    if cur == TikTakToe.U:
-                        winp=cur
+                    if cc == TikTakToe.U:
+                        winp=cc
                         winxy=[]
-                    elif cur==winp:
+                    elif cc==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
+                    self.state=TikTakToe.STOP
                     return winp,winxy
         #check diag1
         for k in range(self.winlen-1,2*self.size-self.winlen):
@@ -92,24 +98,25 @@ class TikTakToe:
                 y=k-x
                 if y<0 or y>=self.size:
                     continue
-                cur=self.get(x,y)
+                cc=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cur == TikTakToe.U:
+                    if cc == TikTakToe.U:
                         continue
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 else:
-                    if cur == TikTakToe.U:
-                        winp=cur
+                    if cc == TikTakToe.U:
+                        winp=cc
                         winxy=[]
-                    elif cur==winp:
+                    elif cc==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
+                    self.state=TikTakToe.STOP
                     return winp,winxy
                 
         #check diag2
@@ -120,22 +127,25 @@ class TikTakToe:
                 y=x-k
                 if y<0 or y>=self.size:
                     continue
-                cur=self.get(x,y)
+                cc=self.get(x,y)
                 if winp == TikTakToe.U:
-                    if cur == TikTakToe.U:
+                    if cc == TikTakToe.U:
                         continue
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 else:
-                    if cur == TikTakToe.U:
-                        winp=cur
+                    if cc == TikTakToe.U:
+                        winp=cc
                         winxy=[]
-                    elif cur==winp:
+                    elif cc==winp:
                         winxy.append((x,y))
                     else:
-                        winp=cur
+                        winp=cc
                         winxy=[(x,y)]
                 if len(winxy)==self.winlen:
                     print (winp,winxy)
+                    self.state=TikTakToe.STOP
                     return winp,winxy
+        
+        return None,None
