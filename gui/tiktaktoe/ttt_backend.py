@@ -21,13 +21,15 @@ class TikTakToe:
             self.cur=TikTakToe.X
     def get(self,x,y):
         return self.field[y][x]
+    def set(self,x,y,c):
+        self.field[y][x]=c
 
     def possbile_step(self,x,y):
         if self.state==TikTakToe.STOP:
             return None
-        if self.field[y][x]==TikTakToe.U:
+        if self.get(x,y)==TikTakToe.U:
             c=self.cur
-            self.field[y][x]=self.cur
+            self.set(x,y,self.cur)
             self.flip()
             return c
         else:
@@ -90,6 +92,7 @@ class TikTakToe:
                     print (winp,winxy)
                     self.state=TikTakToe.STOP
                     return winp,winxy
+                    
         #check diag1
         for k in range(self.winlen-1,2*self.size-self.winlen):
             winxy=[]
